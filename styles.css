@@ -1,0 +1,114 @@
+body {
+    background: linear-gradient(to bottom, #87CEEB, #B0E0E6);
+}
+
+.petal {
+    position: absolute;
+    width: 20px;
+    height: 60px;
+    background-color: #ffeb3b;
+    border-radius: 50% 50% 0 0;
+    transform-origin: bottom center;
+    opacity: 0;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Alínea al fondo */
+}
+.image {
+    width: 60rem;
+    position: relative;
+    animation: none;
+    display: none;
+    /*animation: slideUp 5s forwards; /* Ajusta la duración según necesites */
+    z-index: 999999;
+}
+@keyframes slideUp {
+    from {
+        transform: translateY(100vh);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+#animatedTitle {
+    position: absolute;
+    color: #ffffff;
+    top: 20px;
+    text-align: center;
+    font-size: 48px;
+    font-family: 'Pacifico', cursive; /* Tipo de letra atractivo */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.17); /* Sombra para darle profundidad */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    transition: color 0.3s; /* Transición suave para el color */
+}
+.letter {
+    opacity: 0;
+    display: inline-block;
+    transform: translateY(60rem);
+    animation: fadeIn 1s forwards;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 1;
+        transform: translateY(60rem);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.heart {
+    color: red; /* Color rojo para el corazón */
+    display: inline-block;
+    animation: pulse 1s infinite; /* Efecto de palpitar */
+}
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2); /* Aumentar tamaño en el medio del pulso */
+    }
+}
+
+#startAnimation {
+    position: absolute;
+    top: 20px; /* Ajusta la posición vertical */
+    left: 20px; /* Ajusta la posición horizontal */
+    background-color: #ffeb3b; /* Color de fondo amarillo */
+    color: rgba(5, 15, 79, 0.49); /* Color de texto */
+    font-family: 'Pacifico', cursive; /* Usar la misma fuente */
+    font-size: 24px; /* Tamaño de fuente */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+}
+
+#startAnimation:disabled {
+    cursor: not-allowed; /* Cambiar el cursor para indicar que está deshabilitado */
+    opacity: 0.5; /* Opcional: reducir la opacidad para indicar que está inactivo */
+}
+
+/* Mantener el efecto de hover solo si no está deshabilitado */
+#startAnimation:hover:not(:disabled) {
+    background-color: #ffd600; /* Color de fondo al pasar el mouse */
+    transform: scale(1.05); /* Efecto de aumento al pasar el mouse */
+}
+
+
+#startAnimation.ready {
+    background-color: #ffeb3b; /* Color de fondo amarillo */
+    box-shadow: 0 0 15px rgba(255, 235, 59, 0.6), 0 0 25px rgba(255, 235, 59, 0.4); /* Sombra resaltada */
+    transform: scale(1.05); /* Efecto de aumento */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Transiciones suaves */
+}
