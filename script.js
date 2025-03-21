@@ -138,6 +138,7 @@ document.getElementById('startAnimation').addEventListener('click', () => {
     // Deshabilitar el botón y aplicar el estado "no listo"
     startButton.disabled = true;
     startButton.classList.remove('ready');
+    startButton.style.display = 'none';
 
     let index = 0;
 
