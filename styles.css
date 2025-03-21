@@ -112,3 +112,54 @@ body {
     transform: scale(1.05); /* Efecto de aumento */
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Transiciones suaves */
 }
+
+#animatedTitle {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las palabras bajen de línea */
+    max-width: 100%; /* Asegura que el texto se mantenga dentro del contenedor */
+  }
+  
+  .word {
+    display: inline-block;
+    white-space: nowrap; /* Evita que las palabras se dividan */
+  }
+  
+  .letter {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  #animatedTitle span {
+    display: inline-block;
+  }
+  
+  
+
+@media (max-width: 768px) {
+    #animatedTitle {
+        font-size: 1.5rem;
+        top: 2rem;
+        width: 70%;
+    }
+    
+    .image {
+        width: 90%;
+        max-width: 400px;
+    }
+    
+    #startAnimation {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 5vw;
+        padding: 12px 24px;
+        white-space: nowrap;
+    }
+    
+    .petal {
+        width: 15px;
+        height: 45px;
+    }
+}

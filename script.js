@@ -19,16 +19,16 @@ function getRandomPositionInQuadrant(quadrant) {
             y = Math.random() * (height - CONTAINER_SIZE);
             break;
         case 2:  // Cuadrante superior derecho
-            x = Math.random() * (width - CONTAINER_SIZE) + width;
+            x = Math.random() * (width - CONTAINER_SIZE) + width/2;
             y = Math.random() * (height - CONTAINER_SIZE);
             break;
         case 3:  // Cuadrante inferior izquierdo
             x = Math.random() * (width - CONTAINER_SIZE);
-            y = Math.random() * (height - CONTAINER_SIZE) + height;
+            y = Math.random() * (height - CONTAINER_SIZE) + height/2;
             break;
         case 4:  // Cuadrante inferior derecho
-            x = Math.random() * (width - CONTAINER_SIZE) + width;
-            y = Math.random() * (height - CONTAINER_SIZE) + height;
+            x = Math.random() * (width - CONTAINER_SIZE) + width/2;
+            y = Math.random() * (height - CONTAINER_SIZE) + height/2;
             break;
     }
 
@@ -129,47 +129,66 @@ document.getElementById('startAnimation').addEventListener('click', () => {
     removeAllSunflowers();
     const image = document.querySelector('.image');
 
-    const titleText = "!Ten tus flores amarillas por preciosa ";
+    const titleText = "!Ten tus flores amarillas por preciosa";
     const titleElement = document.getElementById('animatedTitle');
-
-    // Limpiar el contenido del título antes de iniciar la animación
+    
     titleElement.innerHTML = '';
-
-    // Deshabilitar el botón y aplicar el estado "no listo"
+    
     startButton.disabled = true;
     startButton.classList.remove('ready');
     startButton.style.display = 'none';
-
-    let index = 0;
-
-    function animateTitle() {
-        if (index < titleText.length) {
-            const span = document.createElement('span');
-            span.textContent = titleText[index] === ' ' ? '\u00A0' : titleText[index];
-            span.classList.add('letter');
-            titleElement.appendChild(span);
-
-            setTimeout(() => {
-                span.style.animationDelay = `${index * 200}ms`; // Retraso basado en el índice
-                span.style.opacity = 1; // Hace que el texto aparezca
-            }, 0);
-            index++;
-            setTimeout(animateTitle, 20); // Espera antes de mostrar la siguiente letra
+    
+    const words = titleText.split(' '); // Separar palabras
+    let wordIndex = 0;
+    
+    function animateWords() {
+        if (wordIndex < words.length) {
+            const wordSpan = document.createElement('span'); // Contenedor para cada palabra
+            wordSpan.classList.add('word');
+            
+            words[wordIndex].split('').forEach((char, charIndex) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.classList.add('letter');
+                span.style.opacity = 0; // Iniciar con opacidad 0
+                span.style.animationDelay = `${charIndex * 50}ms`; // Agregar retraso para cada letra
+                wordSpan.appendChild(span);
+            });
+    
+            titleElement.appendChild(wordSpan);
+    
+            // Agregar un espacio no divisible después de cada palabra para que sea visible
+            const space = document.createElement('span');
+            space.innerHTML = '&nbsp;';
+            titleElement.appendChild(space);
+    
+            let charIndex = 0;
+    
+            function animateLetters() {
+                if (charIndex < wordSpan.children.length) {
+                    wordSpan.children[charIndex].style.opacity = 1;
+                    charIndex++;
+                    setTimeout(animateLetters, 50);
+                } else {
+                    wordIndex++;
+                    setTimeout(animateWords, 200); // Esperar antes de la siguiente palabra
+                }
+            }
+    
+            animateLetters();
         } else {
             // Añadir el corazón después del texto
             const heartSpan = document.createElement('span');
-            heartSpan.textContent = '<3';
+            heartSpan.textContent = '💛';
             heartSpan.classList.add('heart');
             titleElement.appendChild(heartSpan);
-
-            // Habilitar el botón después de completar la animación y aplicar el estado "listo"
+    
             startButton.disabled = false;
             startButton.classList.add('ready');
         }
     }
-
-    animateTitle();
-
+    
+    animateWords();
     // Ocultar la imagen primero
     image.style.display = 'none';
     setTimeout(() => {
